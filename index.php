@@ -4,9 +4,9 @@ $presentTime = new DateTime('', new DateTimeZone('Europe/Paris'));
 $destinationTime  = new DateTime('1982-11-29 09:00', new DateTimeZone('Europe/Paris'));
 $diff = $presentTime->diff($destinationTime);
 
-$presentTimeMinutes = strtotime($presentTime->format('d-m-Y'));
-$destinationTimeMinutes  = strtotime($destinationTime->format('d-m-Y'), $presentTimeMinutes);
-$carburant = ($destinationTimeMinutes/60)/10000;
+$presentTimeMinutes = strtotime($presentTime->format('Y-m-d'));
+$destinationTimeMinutes  = strtotime($destinationTime->format('Y-m-d'));
+$carburant = (($presentTimeMinutes - $destinationTimeMinutes) / 60) / 10000;
 
 ?>
 
@@ -74,10 +74,15 @@ $carburant = ($destinationTimeMinutes/60)/10000;
             <p class="bg-dark text-light text-center col-4 offset-4 mt-1">PRESENT TIME</p>
         </div>
         <div class="row mt-5">
-            <p class="col-6 offset-3 text-center">Voyage de <?= $diff->y ?> an(s) - <?= $diff->m ?> mois - <?= $diff->d ?> jours</p>
+            <p class="col-6 offset-3 text-center">Voyage de <?= $diff->y ?> an(s) - <?= $diff->m ?> mois - <?= $diff->d ?> jours - <?= $diff->h ?> heures - <?= $diff->i ?> minutes</p>
         </div>
         <div class="row">
-            <p class="col-6 offset-3 text-center">Il faudra <?= floor($carburant) ?> litres soit un vrai gouffre xD </p>
+            <p class="col-6 offset-3 text-center">
+                Il faudra <?= ceil($carburant) ?> litre(s)
+                <?php if (ceil($carburant) > 100) : ?>
+                    soit un vrai gouffre xD
+                <?php endif ?>
+            </p>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
