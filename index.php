@@ -6,7 +6,7 @@ $diff = $presentTime->diff($destinationTime);
 
 $presentTimeMinutes = strtotime($presentTime->format('Y-m-d'));
 $destinationTimeMinutes  = strtotime($destinationTime->format('Y-m-d'));
-$carburant = (($presentTimeMinutes - $destinationTimeMinutes) / 60) / 10000;
+$carburant = ((($presentTimeMinutes - $destinationTimeMinutes) / 60) / 10000) < 0 ? ((($destinationTimeMinutes - $presentTimeMinutes) / 60) / 10000) : ((($presentTimeMinutes - $destinationTimeMinutes) / 60) / 10000);
 
 ?>
 
